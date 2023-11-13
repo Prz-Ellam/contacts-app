@@ -1,6 +1,7 @@
 version: '3'
 services:
   database:
+    restart: unless-stopped
     image: mysql
     container_name: contacts-database
     ports: 
@@ -16,6 +17,7 @@ services:
     networks:
       - default
   app:
+    restart: unless-stopped
     image: contacts-app
     container_name: contacts-app
     build:
