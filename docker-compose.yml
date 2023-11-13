@@ -1,0 +1,31 @@
+version: '3'
+services:
+  database:
+    image: mysql
+    container_name: contacts-database
+    ports: 
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: contacts_app
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root 
+    volumes:
+      - ./database/dump:/docker-entrypoint-initdb.d
+      - ./database/data:/var/lib/mysql
+    networks:
+      - default
+  app:
+    image: contacts-app
+    container_name: contacts-app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    links:
+      - database
+    volumes:
+      - "./app/src:/var/www/html"
+    networks:
+      - default
