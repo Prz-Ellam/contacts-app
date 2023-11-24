@@ -24,10 +24,13 @@ services:
       context: ./app
       dockerfile: Dockerfile
     ports:
-      - "8080:80"
+      - "80:80"
+      - "443:443"
     links:
       - database
     volumes:
       - "./app/src:/var/www/html"
+      - "./web/httpd.conf:/etc/apache2/sites-available/000-default.conf"
+      - "./web/certs:/etc/apache2/ssl"
     networks:
       - default

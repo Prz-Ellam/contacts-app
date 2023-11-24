@@ -10,3 +10,6 @@
 
 # Mac/OSX
 .DS_Store
+
+web/certs/*
+!web/certs/.gitkeep
